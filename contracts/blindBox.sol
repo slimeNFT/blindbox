@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/security/Pausable.sol";
 contract BlindBox is Ownable, ERC1155, Pausable {
     string public name;
     string public symbol;
-    string public baseURI;
+    string public baseURL;
 
     mapping(address => bool) public minters;
     modifier onlyMinter() {
@@ -26,10 +26,10 @@ contract BlindBox is Ownable, ERC1155, Pausable {
 
     mapping(uint => Box) public boxMap;
 
-    constructor(string memory uri_) ERC1155(uri_) {
+    constructor(string memory url_) ERC1155(url_) {
         name = "Slime Blind Box";
         symbol = "SBOX";
-        baseURI = uri_;
+        baseURL = url_;
         minters[_msgSender()] = true;
     }
 
@@ -98,13 +98,13 @@ contract BlindBox is Ownable, ERC1155, Pausable {
         minters[newMinter] = power;
     }
 
-    function boxURI(uint boxID_) public view returns (string memory) {
+    function boxURL(uint boxID_) public view returns (string memory) {
         require(boxMap[boxID_].id != 0, "box not exist");
-        return string(abi.encodePacked(baseURI, boxID_));
+        return string(abi.encodePacked(baseURL, boxID_));
     }
 
-    function setURI(string memory newURI) public onlyOwner {
-        baseURI = newURI;
+    function setURL(string memory newURL_) public onlyOwner {
+        baseURL = newURL_;
     }
 
     function setPause(bool isPause) public onlyOwner {
