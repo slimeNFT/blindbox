@@ -15,7 +15,7 @@ async function main() {
 
   // We get the contract to deploy
   const Greeter = await hre.ethers.getContractFactory("BlindBox");
-  const greeter = await Greeter.deploy("http://test/");
+  const greeter = await Greeter.deploy("https://slime.pet");
 
   await greeter.deployed();
 
